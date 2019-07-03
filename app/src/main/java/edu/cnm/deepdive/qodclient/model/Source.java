@@ -2,6 +2,7 @@ package edu.cnm.deepdive.qodclient.model;
 
 import java.net.URI;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public class Source {
@@ -45,4 +46,5 @@ public class Source {
   public void setHref(URI href) {
     this.href = href;
   }
+
 }
