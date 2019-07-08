@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ListView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -28,6 +32,17 @@ public class MainActivity extends AppCompatActivity {
     setupToolbar();
     setupFab();
     setupViewModel();
+    EditText searchText = findViewById(R.id.search_box);
+    ImageButton submitSearch = findViewById(R.id.submit_search);
+    ListView searchResults = findViewById(R.id.search_results);
+    submitSearch.setOnClickListener(v ->
+
+        viewModel.searchQuote(searchText.toString()).observe(this, (search) -> {
+          ArrayAdapter<Quote> adapter = new ArrayAdapter<>(this,
+              android.R.layout.simple_list_item_1, search);
+          searchResults.setAdapter(adapter);
+
+        }));
 
   }
 

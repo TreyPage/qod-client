@@ -62,6 +62,11 @@ public class Quote {
     this.href = href;
   }
 
+  @Override
+  public String toString() {
+    return String.format("%s%s", text, getCombinedSources());
+  }
+
   public String getCombinedSources() {
     StringBuilder builder = new StringBuilder(M_DASH);
     if (sources.isEmpty()) {

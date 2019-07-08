@@ -21,6 +21,31 @@
 
   </com.google.android.material.appbar.AppBarLayout>
 
+  <EditText
+    android:id="@+id/search_box"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:hint="@string/search_text"
+    android:layout_gravity="center_horizontal|top"
+    android:layout_marginTop="60dp"
+    />
+
+  <ImageButton
+    android:id="@+id/submit_search"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/search"
+    android:layout_gravity="top|end"
+    android:layout_marginTop="60dp"
+    android:layout_marginEnd="20dp"/>
+
+  <ListView
+    android:id="@+id/search_results"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"/>
+
+
   <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:id="@+id/fab"
     android:layout_width="wrap_content"
