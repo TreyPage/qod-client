@@ -34,7 +34,6 @@ public class MainViewModel extends AndroidViewModel {
     return random;
   }
 
-
   public LiveData<List<Quote>> searchQuote(String search) {
     pending.add(QodService.getInstance().search(search).subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())

@@ -1,9 +1,11 @@
 package edu.cnm.deepdive.qodclient.service;
 
+import androidx.annotation.Nullable;
 import edu.cnm.deepdive.qodclient.BuildConfig;
 import edu.cnm.deepdive.qodclient.model.Quote;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import java.io.IOException;
 import java.util.List;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -48,5 +50,6 @@ public interface QodService {
 //      INSTANCE = retrofit.create(QodService.class);
     }
   }
+
 
 }

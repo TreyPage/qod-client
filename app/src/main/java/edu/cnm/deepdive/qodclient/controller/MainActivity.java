@@ -3,6 +3,8 @@ package edu.cnm.deepdive.qodclient.controller;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,12 +34,14 @@ public class MainActivity extends AppCompatActivity {
     setupToolbar();
     setupFab();
     setupViewModel();
+
     EditText searchText = findViewById(R.id.search_box);
     ImageButton submitSearch = findViewById(R.id.submit_search);
     ListView searchResults = findViewById(R.id.search_results);
+
     submitSearch.setOnClickListener(v ->
 
-        viewModel.searchQuote(searchText.toString()).observe(this, (search) -> {
+        viewModel.searchQuote(searchText.getText().toString()).observe(this, (search) -> {
           ArrayAdapter<Quote> adapter = new ArrayAdapter<>(this,
               android.R.layout.simple_list_item_1, search);
           searchResults.setAdapter(adapter);
