@@ -1,10 +1,6 @@
 package edu.cnm.deepdive.qodclient.controller;
 
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
   private LiveData<Quote> random;
   private MainViewModel viewModel;
+  private ListView searchResults;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -34,34 +31,37 @@ public class MainActivity extends AppCompatActivity {
     setupToolbar();
     setupFab();
     setupViewModel();
+    setupSearch();
+  }
 
+  private void setupSearch() {
     EditText searchText = findViewById(R.id.search_box);
     ImageButton submitSearch = findViewById(R.id.submit_search);
-    ListView searchResults = findViewById(R.id.search_results);
+    searchResults = findViewById(R.id.search_results);
 
     submitSearch.setOnClickListener(v ->
-
-        viewModel.searchQuote(searchText.getText().toString()).observe(this, (search) -> {
-          ArrayAdapter<Quote> adapter = new ArrayAdapter<>(this,
-              android.R.layout.simple_list_item_1, search);
-          searchResults.setAdapter(adapter);
-
-        }));
-
+        viewModel.searchQuote(searchText.getText().toString().trim()));
   }
 
   private void setupViewModel() {
     View rootView = findViewById(R.id.root_view);
     viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+    getLifecycle().addObserver(viewModel);
     viewModel.getRandomQuote()
         .observe(this, (quote) -> {
           AlertDialog builder = new AlertDialog.Builder(this)
               .setTitle("Random Quote")
               .setMessage(quote.getText() + quote.getCombinedSources())
-              .setPositiveButton("Dismiss", (dialogInterface, i) -> {})
+              .setPositiveButton("Dismiss", (dialogInterface, i) -> {
+              })
               .create();
           builder.show();
         });
+    viewModel.searchQuote(null).observe(this, (quotes) -> {
+      ArrayAdapter<Quote> adapter = new ArrayAdapter<>(
+          this, android.R.layout.simple_list_item_1, quotes);
+      searchResults.setAdapter(adapter);
+    });
   }
 
   private void setupFab() {
